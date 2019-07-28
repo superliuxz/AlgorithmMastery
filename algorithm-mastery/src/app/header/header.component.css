@@ -1,0 +1,9 @@
+input::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+mat-form-field {
+  margin: 0 auto;
+  width: 50%;
+}
