@@ -14,10 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { SearchContentComponent } from './search-content/search-content.component';
+import { AlgorithmQuestionListComponent } from './algorithm-question-list/algorithm-question-list.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SearchContentComponent],
+  declarations: [AppComponent, HeaderComponent, AlgorithmQuestionListComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
