@@ -1,0 +1,78 @@
+<div mat-dialog-content>
+  <form [formGroup]="form" class="column-display">
+    <mat-form-field>
+      <input matInput [placeholder]="'Title'" [formControlName]="'title'">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'Source'" [formControlName]="'source'">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Topic</mat-label>
+      <mat-select [formControlName]="'topic'">
+        <mat-option *ngFor="let topic of topicsAndTechniques" [value]="topic">
+          {{topic}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- TODO: what is this tags? -->
+<!--    <mat-form-field>-->
+<!--      <input matInput [placeholder]="'Tags'" [formControlName]="'tags'">-->
+<!--    </mat-form-field>-->
+    <mat-form-field>
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let it of getArrayControls(); let i = index"
+          [selectable]="true"
+          [removable]="true"
+          (removed)="onRemoveTechnique(i)">
+          {{it.value}} <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          [formControl]="techniquesInputControl"
+          [placeholder]="'Techniques'"
+          [matChipInputFor]="chipList"
+          [matChipInputAddOnBlur]="true"
+          [matAutocomplete]="auto">
+        <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="onSelectTechnique($event)">
+          <mat-option
+            *ngFor="let technique of filteredTechniques | async"
+            [value]="technique">
+            {{technique}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-chip-list>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'Input'" [formControlName]="'input'">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'Output'" [formControlName]="'output'">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'Solution'" [formControlName]="'solution'">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'Time Complexity'" [formControlName]="'timeComplexity'">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'Space Complexity'" [formControlName]="'spaceComplexity'">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [placeholder]="'Note'" [formControlName]="'note'">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" (click)="onDiscard()">
+    Discard
+  </button>
+  <button
+    mat-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="form.invalid">
+    Save
+  </button>
+</div>

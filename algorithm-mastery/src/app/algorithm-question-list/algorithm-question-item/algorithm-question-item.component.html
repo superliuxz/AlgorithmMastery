@@ -1,0 +1,54 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{algorithmQuestion.title}}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{algorithmQuestion.topic}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <mat-tab-group>
+    <mat-tab label="Description">
+      <mat-list>
+        <mat-list-item>Input: {{algorithmQuestion.input}}</mat-list-item>
+        <mat-list-item>Output: {{algorithmQuestion.output}}</mat-list-item>
+        <mat-list-item>
+          <a [href]="algorithmQuestion.source"
+             target="_blank">{{algorithmQuestion.source}}</a>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="Hint">
+      <mat-list>
+        <mat-list-item *ngIf="algorithmQuestion.techniques.length > 0">
+          Techniques: {{algorithmQuestion.techniques.join(', ')}}
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="Solution">
+      <mat-list>
+        <mat-list-item>
+          Reference solution: {{algorithmQuestion.solution}}
+        </mat-list-item>
+        <mat-list-item>
+          Time Complexity: {{algorithmQuestion.timeComplexity}}
+        </mat-list-item>
+        <mat-list-item>
+          Space Complexity: {{algorithmQuestion.spaceComplexity}}
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="Note" *ngIf="algorithmQuestion.note !== ''">
+      <mat-list>
+        <mat-list-item>
+          {{algorithmQuestion.note}}
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+  </mat-tab-group>
+
+  <mat-action-row>
+    <button mat-raised-button (click)="onEdit()">Edit</button>
+  </mat-action-row>
+</mat-expansion-panel>
