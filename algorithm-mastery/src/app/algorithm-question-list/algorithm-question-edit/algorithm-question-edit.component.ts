@@ -76,7 +76,7 @@ export class AlgorithmQuestionEditComponent implements OnInit {
       techniquesArray.push(new FormControl(technique, [Validators.required]));
     });
     this.form = new FormGroup({
-      title: new FormControl(this.data.title, [Validators.required]),
+      title: new FormControl(this.data.title || '', [Validators.required]),
       source: new FormControl(this.data.source),
       topic: new FormControl(this.data.topic, [Validators.required]),
       tags: new FormControl(this.data.tags),

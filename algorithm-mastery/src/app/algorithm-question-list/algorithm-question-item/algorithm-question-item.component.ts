@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { Subscription } from 'rxjs';
-import { AlgorithmQuestionEditComponent } from '../algorithm-question-edit/algorithm-question-edit.component';
 
+import { AlgorithmQuestionEditComponent } from '../algorithm-question-edit/algorithm-question-edit.component';
 import { AlgorithmQuestionModel } from '../algorithm-question.model';
 
 @Component({

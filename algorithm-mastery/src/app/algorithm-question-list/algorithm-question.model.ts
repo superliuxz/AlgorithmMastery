@@ -11,3 +11,19 @@ export interface AlgorithmQuestionModel {
   spaceComplexity: string;
   note: string;
 }
+
+export function getEmptyQuestion() {
+  return {
+    title: '',
+    source: '',
+    topic: '',
+    tags: [],
+    techniques: [],
+    input: '',
+    output: '',
+    solution: '',
+    timeComplexity: '',
+    spaceComplexity: '',
+    note: '',
+  };
+}
