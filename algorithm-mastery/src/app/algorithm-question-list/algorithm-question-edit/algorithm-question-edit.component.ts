@@ -111,7 +111,7 @@ export class AlgorithmQuestionEditComponent implements OnInit {
   }
 
   onSave() {
-    this.dialogRef.close({ data: this.form.value });
+    this.dialogRef.close(this.form.value);
   }
 
   onRemoveTechnique(idx: number) {

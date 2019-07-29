@@ -33,8 +33,8 @@ export class AlgorithmQuestionItemComponent implements OnInit, OnDestroy {
     });
     this.sub = dialogRef.afterClosed().subscribe(updatedQuestion => {
       if (updatedQuestion) {
-        console.log(updatedQuestion.data);
-        this.algorithmQuestion = updatedQuestion.data;
+        console.log(updatedQuestion);
+        this.algorithmQuestion = updatedQuestion;
       }
     });
   }
