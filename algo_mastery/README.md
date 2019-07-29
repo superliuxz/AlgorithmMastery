@@ -9,7 +9,7 @@ Tested under Python 3.7 and Postgres 10.
 
 - Under virualenv `algo_mastery`, install dependency from `requirements.txt`.
 
-- Under `algo_mastery/settings/`, create a new file `algo_mastery.settings.settings_<YOUR NAME>.py`. Use the template:
+- Under `algo_mastery/settings/`, create a new file `settings_<YOUR NAME>.py`. Use the template:
   ```python
   from .settings import *
   
