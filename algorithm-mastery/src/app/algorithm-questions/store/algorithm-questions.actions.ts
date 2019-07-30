@@ -18,11 +18,9 @@ export const updateQuestion = createAction(
   props<{ question: AlgorithmQuestionModel }>()
 );
 
-export const fetchQuestions = createAction(
-  `${prefix} Fetch Questions`
-);
+export const fetchQuestions = createAction(`${prefix} Fetch Questions`);
 
 export const setQuestions = createAction(
   `${prefix} Set Questions`,
-  props<{questions: AllQuestionsResponse}>()
+  props<{ questions: AllQuestionsResponse }>()
 );

@@ -1,8 +1,6 @@
 import {
   HTTP_INTERCEPTORS,
-  HttpClient,
   HttpClientModule,
-  HttpHandler,
 } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -23,17 +21,18 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {EffectsModule} from '@ngrx/effects';
-import {StoreModule} from '@ngrx/store';
-import {AlgorithmQuestionsEffects} from './algorithm-questions/store/algorithm-questions.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
+import { AlgorithmQuestionsEffects } from './algorithm-questions/store/algorithm-questions.effects';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {AuthInterceptorService} from './auth/auth-interceptor.service';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { HeaderComponent } from './header/header.component';
 import { AlgorithmQuestionListComponent } from './algorithm-questions/algorithm-question-list/algorithm-question-list.component';
 import { AlgorithmQuestionItemComponent } from './algorithm-questions/algorithm-question-item/algorithm-question-item.component';
 import { AlgorithmQuestionEditComponent } from './algorithm-questions/algorithm-question-edit/algorithm-question-edit.component';
-import {appReducer} from './store/app.reducer';
+import { appReducer } from './store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -64,6 +63,7 @@ import {appReducer} from './store/app.reducer';
     MatGridListModule,
     ReactiveFormsModule,
     StoreModule.forRoot(appReducer),
+    AppRoutingModule,
   ],
   providers: [
     {

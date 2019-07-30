@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
-import {AppState} from '../../store/app.reducer';
+import { AppState } from '../../store/app.reducer';
 import { AlgorithmQuestionModel } from '../algorithm-question.model';
-import * as AlgorithmQuestionsAction from '../store/algorithm-questions.actions';
 
 @Component({
   selector: 'app-algorithm-question-list',
@@ -19,21 +18,18 @@ export class AlgorithmQuestionListComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(AlgorithmQuestionsAction.fetchQuestions());
-    this.sub = this.store.select('algorithmQuestions').subscribe(
-      state => {
-        const questions = [];
-        const ids = [];
-        for (const id in state.algorithmQuestions) {
-          if (state.algorithmQuestions.hasOwnProperty(id)) {
-            ids.push(id);
-            questions.push(state.algorithmQuestions[id]);
-          }
+    this.sub = this.store.select('algorithmQuestions').subscribe(state => {
+      const questions = [];
+      const ids = [];
+      for (const id in state.algorithmQuestions) {
+        if (state.algorithmQuestions.hasOwnProperty(id)) {
+          ids.push(id);
+          questions.push(state.algorithmQuestions[id]);
         }
-        this.questions = questions;
-        this.questionIds = ids;
       }
-    );
+      this.questions = questions;
+      this.questionIds = ids;
+    });
   }
 
   ngOnDestroy(): void {
