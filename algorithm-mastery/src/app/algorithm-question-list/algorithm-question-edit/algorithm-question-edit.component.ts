@@ -13,6 +13,7 @@ import {
 } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Converter } from 'showdown';
 
 import { AlgorithmQuestionModel } from '../algorithm-question.model';
 
@@ -69,6 +70,7 @@ export class AlgorithmQuestionEditComponent implements OnInit {
   ];
   filteredTechniques: Observable<string[]>;
   techniquesInputControl = new FormControl();
+  converter = new Converter();
 
   ngOnInit() {
     const techniquesArray = new FormArray([]);

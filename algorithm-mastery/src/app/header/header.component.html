@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row *ngIf="isAuthenticated; else WELCOME">
     <mat-form-field appearance="standard">
+      <mat-icon>search</mat-icon>
       <input matInput type="search" placeholder="Search here...">
     </mat-form-field>
     <button mat-raised-button color="accent" (click)="onNewQuestion()">New Question</button>

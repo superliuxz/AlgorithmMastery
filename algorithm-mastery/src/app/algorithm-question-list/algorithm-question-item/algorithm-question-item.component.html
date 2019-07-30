@@ -27,10 +27,12 @@
       </mat-list>
     </mat-tab>
     <mat-tab label="Solution">
+      <p class="list-indent list-item-font-size">Reference solution: </p>
+      <div class="list-indent"
+        [innerHTML]="converter.makeHtml(algorithmQuestion.solution)">
+      </div>
       <mat-list>
-        <mat-list-item>
-          Reference solution: {{algorithmQuestion.solution}}
-        </mat-list-item>
+        <mat-divider></mat-divider>
         <mat-list-item>
           Time Complexity: {{algorithmQuestion.timeComplexity}}
         </mat-list-item>

@@ -50,9 +50,16 @@
     <mat-form-field>
       <input matInput [placeholder]="'Output'" [formControlName]="'output'">
     </mat-form-field>
-    <mat-form-field>
-      <textarea matInput [placeholder]="'Solution'" [formControlName]="'solution'"></textarea>
-    </mat-form-field>
+    <mat-tab-group>
+      <mat-tab label="Solution (Markdown)">
+        <mat-form-field style="width: 100%;">
+          <textarea matInput [formControlName]="'solution'"></textarea>
+        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Preview">
+        <div [innerHTML]="converter.makeHtml(form.get('solution').value)"></div>
+      </mat-tab>
+    </mat-tab-group>
     <mat-form-field>
       <input matInput [placeholder]="'Time Complexity'" [formControlName]="'timeComplexity'">
     </mat-form-field>

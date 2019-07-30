@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatExpansionPanel } from '@angular/material';
 import { Subscription } from 'rxjs';
+import { Converter } from 'showdown';
 
 import { AlgorithmQuestionEditComponent } from '../algorithm-question-edit/algorithm-question-edit.component';
 import { AlgorithmQuestionModel } from '../algorithm-question.model';
@@ -14,6 +15,7 @@ import { AlgorithmQuestionModel } from '../algorithm-question.model';
 export class AlgorithmQuestionItemComponent implements OnInit, OnDestroy {
   @Input() algorithmQuestion: AlgorithmQuestionModel;
   private sub: Subscription;
+  converter = new Converter();
 
   constructor(private dialog: MatDialog) {}
 

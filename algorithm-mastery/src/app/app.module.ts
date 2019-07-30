@@ -1,3 +1,8 @@
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpHandler,
+} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatAutocompleteModule,
@@ -5,6 +10,7 @@ import {
   MatChipsModule,
   MatDialogModule,
   MatExpansionModule,
+  MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -34,6 +40,7 @@ import { AlgorithmQuestionEditComponent } from './algorithm-question-list/algori
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    HttpClientModule,
     MatToolbarModule,
     MatNativeDateModule,
     MatInputModule,
@@ -48,6 +55,7 @@ import { AlgorithmQuestionEditComponent } from './algorithm-question-list/algori
     MatChipsModule,
     MatAutocompleteModule,
     MatSelectModule,
+    MatGridListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
