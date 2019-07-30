@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   accessToken: 'beb0148e-72b4-42c1-b26a-dc23e31319ce',
+  allQuestionsEP: 'http://localhost:8000/api/all-questions/',
+  oneQuestionEP: 'http://localhost:8000/api/one-question/',
 };
 
 /*

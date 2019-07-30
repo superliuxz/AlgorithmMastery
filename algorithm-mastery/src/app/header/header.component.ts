@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Subscription } from 'rxjs';
 
-import { AlgorithmQuestionEditComponent } from '../algorithm-question-list/algorithm-question-edit/algorithm-question-edit.component';
-import { getEmptyQuestion } from '../algorithm-question-list/algorithm-question.model';
+import { AlgorithmQuestionEditComponent } from '../algorithm-questions/algorithm-question-edit/algorithm-question-edit.component';
+import { getEmptyQuestion } from '../algorithm-questions/algorithm-question.model';
 
 @Component({
   selector: 'app-header',
