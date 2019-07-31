@@ -23,10 +23,8 @@ urlpatterns = [
     url(r'^api/health/?$', Health.as_view(), name='health'),
     url(r'^api/all-questions/?$', AllQuestions.as_view(),
         name='get-all-questions'),
-    url(r'^api/all-questions/?$', AllQuestions.as_view(),
-        name='update-all-questions'),
-    url(r'^api/one-question/(?P<question_id>[^/]*)/?$', OneQuestion.as_view(),
-        name='get-one-question'),
+    url(r'^api/one-question/?$', OneQuestion.as_view(),
+        name='put-one-question'),
     url(r'^api/one-question/(?P<question_id>[^/]*)/?$', OneQuestion.as_view(),
         name='update-one-question'),
 ]

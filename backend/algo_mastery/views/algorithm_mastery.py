@@ -1,68 +1,93 @@
 import logging
+import json
+from uuid import uuid4
 
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
+
+from algo_mastery.models import AlgorithmQuestion
 
 logger = logging.getLogger("django")
 
 
 @method_decorator(csrf_exempt, name="dispatch")
 class OneQuestion(View):
-  http_method_names = ['get', 'post']
+  http_method_names = ['put', 'post']
 
-  def get(self, request, question_id, *args, **kwargs):
-    return JsonResponse({'question_id': question_id}, status=200)
+  # Add new question.
+  def put(self, request, *args, **kwargs):
+    if not request.body:
+      return JsonResponse({'message': 'missing request body.'}, status=400)
+    try:
+      body = json.loads(request.body.decode('utf-8'))
+    except json.JSONDecodeError:
+      return JsonResponse({'message': 'bad request body.'}, status=400)
+    question_id = str(uuid4())
+    while AlgorithmQuestion.objects.filter(id=question_id).count() != 0:
+      question_id = str(uuid4())
+    AlgorithmQuestion.objects.create(
+      id=question_id,
+      title=body.get('title'),
+      source=body.get('source'),
+      topic=body.get('topic'),
+      tags=body.get('tags'),
+      techniques=body.get('techniques'),
+      input=body.get('input'),
+      output=body.get('output'),
+      solution=body.get('solution'),
+      spaceComplexity=body.get('spaceComplexity'),
+      timeComplexity=body.get('timeComplexity'),
+    )
+    return JsonResponse({'created': f'{question_id}'}, status=200)
 
+  # Update existing question.
   def post(self, request, question_id, *args, **kwargs):
-    return JsonResponse({'question_id': question_id}, status=201)
+    if not request.body:
+      return JsonResponse({'message': 'missing request body.'}, status=400)
+    try:
+      body = json.loads(request.body.decode('utf-8'))
+    except json.JSONDecodeError:
+      return JsonResponse({'message': 'bad request body.'}, status=400)
+    if AlgorithmQuestion.objects.filter(id=question_id).count() != 1:
+      return JsonResponse({'message': f'{question_id} does not exist!'},
+                          status=400)
+    AlgorithmQuestion.objects.filter(id=question_id).update(
+      title=body.get('title'),
+      source=body.get('source'),
+      topic=body.get('topic'),
+      tags=body.get('tags'),
+      techniques=body.get('techniques'),
+      input=body.get('input'),
+      output=body.get('output'),
+      solution=body.get('solution'),
+      spaceComplexity=body.get('spaceComplexity'),
+      timeComplexity=body.get('timeComplexity'),
+    )
+    return JsonResponse({'message': f'{question_id} updated'}, status=200)
 
 
 @method_decorator(csrf_exempt, name="dispatch")
 class AllQuestions(View):
-  http_method_names = ['get', 'post']
+  http_method_names = ['get']
 
   def get(self, request, *args, **kwargs):
-    return JsonResponse(
-      {
-        '3bfcd158-6801-4a02-9eaf-a1fbb083d97d': {
-          'title': 'Maximum Width Ramp',
-          'source': 'https://leetcode.com/problems/maximum-width-ramp/',
-          'topic': 'Array',
-          'tags': [],
-          'techniques': ['Binary search'],
-          'input':
-            'Given an array A of integers, a ramp is a tuple (i, j) for which '
-            'i < j and A[i] <= A[j]. The width of such a ramp is j - i.',
-          'output':
-            "Find the maximum width of a ramp in A.  If one doesn't exist, "
-            "return 0.",
-          'solution':
-            'Traverse the array while keep a list of decreasing heights and '
-            'their corresponding indexes. Update the maximum width as '
-            'traversing.',
-          'spaceComplexity': 'O(NlogN)',
-          'timeComplexity': 'O(N)',
-          'note': '',
-        },
-        '75d2dd7c-b55b-4b81-8d14-cac8b684b192': {
-          'title': 'Best Time to Buy and Sell Stock',
-          'source': 'https://leetcode.com/problems/best-time-to-buy-and-sell-stock/',
-          'topic': 'Array',
-          'tags': [],
-          'techniques': ['DP', 'Greedy'],
-          'input': 'arr = [7,1,5,3,6,4]',
-          'output': '5 because buy on day 2 and sell on day 5',
-          'solution':
-            'Loop through everything and maintain a min_profit and repeatedly '
-            'update max_profit.',
-          'spaceComplexity': 'O(n)',
-          'timeComplexity': 'O(1)',
-          'note': '',
-        }
-      },
-      status=200)
+    questions = AlgorithmQuestion.objects.all()
+    payload = dict()
+    for question in questions:
+      question_model = dict()
+      question_model['title'] = question.title
+      question_model['source'] = question.source
+      question_model['topic'] = question.topic
+      question_model['tags'] = question.tags
+      question_model['techniques'] = question.techniques
+      question_model['input'] = question.input
+      question_model['output'] = question.output
+      question_model['solution'] = question.solution
+      question_model['spaceComplexity'] = question.spaceComplexity
+      question_model['timeComplexity'] = question.timeComplexity
+      question_model['note'] = question.note
+      payload[question.id] = question_model
 
-  def post(self, request, *args, **kwargs):
-    return HttpResponse(status=201)
+    return JsonResponse(payload, status=200)

@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AppState } from '../../store/app.reducer';
-import { AlgorithmQuestionModel } from '../algorithm-question.model';
 
 @Component({
   selector: 'app-algorithm-question-list',
@@ -11,7 +10,6 @@ import { AlgorithmQuestionModel } from '../algorithm-question.model';
   styleUrls: ['./algorithm-question-list.component.css'],
 })
 export class AlgorithmQuestionListComponent implements OnInit, OnDestroy {
-  questions: AlgorithmQuestionModel[] = [];
   questionIds: string[] = [];
   private sub: Subscription;
 
@@ -19,15 +17,12 @@ export class AlgorithmQuestionListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.store.select('algorithmQuestions').subscribe(state => {
-      const questions = [];
       const ids = [];
       for (const id in state.algorithmQuestions) {
         if (state.algorithmQuestions.hasOwnProperty(id)) {
           ids.push(id);
-          questions.push(state.algorithmQuestions[id]);
         }
       }
-      this.questions = questions;
       this.questionIds = ids;
     });
   }

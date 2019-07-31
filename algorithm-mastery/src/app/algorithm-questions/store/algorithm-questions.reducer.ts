@@ -22,6 +22,16 @@ export function algorithmQuestionsReducer(
         ...state,
         algorithmQuestions: action.questions,
       };
+    }),
+    on(AlgorithmQuestionsAction.updateQuestion, (state, action) => {
+      const newState = { ...state };
+      newState.algorithmQuestions[action.id] = action.question;
+      return newState;
+    }),
+    on(AlgorithmQuestionsAction.setNewQuestionId, (state, action) => {
+      const newState = { ...state };
+      newState.algorithmQuestions[action.id] = action.question;
+      return newState;
     })
   )(algorithmQuestionsState, algorithmQuestionsAction);
 }

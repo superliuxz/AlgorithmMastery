@@ -1,8 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatExpansionPanel } from '@angular/material';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Converter } from 'showdown';
 
+import { AppState } from '../../store/app.reducer';
+import * as AlgorithmQuestionsAction from '../store/algorithm-questions.actions';
 import { AlgorithmQuestionEditComponent } from '../algorithm-question-edit/algorithm-question-edit.component';
 import { AlgorithmQuestionModel } from '../algorithm-question.model';
 
@@ -13,17 +16,27 @@ import { AlgorithmQuestionModel } from '../algorithm-question.model';
   viewProviders: [MatExpansionPanel],
 })
 export class AlgorithmQuestionItemComponent implements OnInit, OnDestroy {
-  @Input() algorithmQuestion: AlgorithmQuestionModel;
-  private sub: Subscription;
+  algorithmQuestion: AlgorithmQuestionModel;
+  @Input() questionId: string;
+  private dialogSub: Subscription;
+  private idSub: Subscription;
   converter = new Converter();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.idSub = this.store
+      .select('algorithmQuestions')
+      .subscribe(algorithmQuestionsState => {
+        this.algorithmQuestion =
+          algorithmQuestionsState.algorithmQuestions[this.questionId];
+      });
+  }
 
   ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    this.idSub.unsubscribe();
+    if (this.dialogSub) {
+      this.dialogSub.unsubscribe();
     }
   }
 
@@ -33,10 +46,15 @@ export class AlgorithmQuestionItemComponent implements OnInit, OnDestroy {
       maxWidth: '100vw',
       minWidth: '60vw',
     });
-    this.sub = dialogRef.afterClosed().subscribe(updatedQuestion => {
+    this.dialogSub = dialogRef.afterClosed().subscribe(updatedQuestion => {
       if (updatedQuestion) {
         console.log(updatedQuestion);
-        this.algorithmQuestion = updatedQuestion;
+        this.store.dispatch(
+          AlgorithmQuestionsAction.updateQuestion({
+            id: this.questionId,
+            question: updatedQuestion,
+          })
+        );
       }
     });
   }

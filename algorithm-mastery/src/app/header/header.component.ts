@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AlgorithmQuestionEditComponent } from '../algorithm-questions/algorithm-question-edit/algorithm-question-edit.component';
 import { getEmptyQuestion } from '../algorithm-questions/algorithm-question.model';
+import * as AlgorithmQuestionsAction from '../algorithm-questions/store/algorithm-questions.actions';
+import { AppState } from '../store/app.reducer';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private isAuthenticated: boolean;
   private sub: Subscription;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.isAuthenticated = true;
@@ -35,6 +38,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sub = dialogRef.afterClosed().subscribe(updatedQuestion => {
       if (updatedQuestion) {
         console.log(updatedQuestion);
+        this.store.dispatch(
+          AlgorithmQuestionsAction.addQuestion({
+            question: updatedQuestion,
+          })
+        );
       }
     });
   }

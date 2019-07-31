@@ -36,6 +36,9 @@ Tested under Python 3.7 and Postgres 10.
   psql -U postgres -c "GRANT CONNECT ON DATABASE algorithm_mastery TO algorithm_mastery;" 
   psql -U postgres -c "ALTER USER algorithm_mastery PASSWORD '<password from local setting file>'"
   ```
+ 
+- __Important__: after setting up the database, run `python3 manage.py bearer_token create`, and copy the generated 
+token to the frontend app's environment.ts file, replace the `accessToken` field.
 
 - You can also run with docker without setting up local dev environment:
   - TODO

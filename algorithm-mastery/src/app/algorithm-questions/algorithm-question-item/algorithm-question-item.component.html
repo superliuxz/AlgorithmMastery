@@ -21,8 +21,8 @@
     </mat-tab>
     <mat-tab label="Hint">
       <mat-list>
-        <mat-list-item *ngIf="algorithmQuestion.techniques.length > 0">
-          Techniques: {{algorithmQuestion.techniques.join(', ')}}
+        <mat-list-item>
+          Techniques: {{algorithmQuestion.techniques.length > 0 ? algorithmQuestion.techniques.join(', ') : ''}}
         </mat-list-item>
       </mat-list>
     </mat-tab>

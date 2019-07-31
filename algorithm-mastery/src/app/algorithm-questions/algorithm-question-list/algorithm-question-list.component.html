@@ -1,6 +1,6 @@
 <mat-accordion multi="true">
-  <div *ngFor="let question of questions">
-    <app-algorithm-question-item [algorithmQuestion]="question">
+  <div *ngFor="let id of questionIds">
+    <app-algorithm-question-item [questionId]="id">
     </app-algorithm-question-item>
   </div>
 </mat-accordion>
