@@ -6,6 +6,11 @@ export interface AllQuestionsResponse {
   [id: string]: AlgorithmQuestionModel;
 }
 
+export interface FilterResponse {
+  topics: string[];
+  techniques: string[];
+}
+
 const prefix = '[Algorithm Question]';
 
 // Add one question to the backend.
@@ -33,4 +38,13 @@ export const fetchQuestions = createAction(`${prefix} Fetch Questions`);
 export const setQuestions = createAction(
   `${prefix} Set Questions`,
   props<{ questions: AllQuestionsResponse }>()
+);
+
+// Fetch all filters from the backend.
+export const fetchFilters = createAction(`${prefix} Fetch Filters`);
+
+// Set all filters to store.
+export const setFilters = createAction(
+  `${prefix} Set Filters`,
+  props<{ filters: FilterResponse }>()
 );

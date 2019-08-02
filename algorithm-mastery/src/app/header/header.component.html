@@ -1,12 +1,31 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row *ngIf="isAuthenticated; else WELCOME">
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="standard" class="search-bar">
       <mat-icon>search</mat-icon>
-      <input matInput type="search" placeholder="Search here...">
+      <input matInput type="search"
+             placeholder="Search from title, input, output or note here...">
     </mat-form-field>
-    <button mat-raised-button color="accent" (click)="onNewQuestion()">New Question</button>
+    <button mat-raised-button color="accent"
+            (click)="onNewQuestion()">New Question
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <mat-form-field class="filter-select" floatLabel="never">
+      <mat-label style="opacity: 0.5;">Topic</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let topping of toppingList"
+                    [value]="topping">{{topping}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="filter-select" floatLabel="never">
+      <mat-label style="opacity: 0.5;">Techniques</mat-label>
+      <mat-select multiple>
+        <mat-option *ngFor="let topping of toppingList"
+                    [value]="topping">{{topping}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-toolbar-row>
   <ng-template #WELCOME>
-      <h1>GoD wANTed uS to LEETCODE...</h1>
+    <h1>GoD wANTed uS to LEETCODE...</h1>
   </ng-template>
 </mat-toolbar>

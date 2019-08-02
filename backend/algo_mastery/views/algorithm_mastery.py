@@ -1,5 +1,5 @@
-import logging
 import json
+import logging
 from uuid import uuid4
 
 from django.http import JsonResponse
@@ -9,10 +9,10 @@ from django.views.generic import View
 
 from algo_mastery.models import AlgorithmQuestion
 
-logger = logging.getLogger("django")
+logger = logging.getLogger('django')
 
 
-@method_decorator(csrf_exempt, name="dispatch")
+@method_decorator(csrf_exempt, name='dispatch')
 class OneQuestion(View):
   http_method_names = ['put', 'post']
 
@@ -39,6 +39,7 @@ class OneQuestion(View):
       solution=body.get('solution'),
       spaceComplexity=body.get('spaceComplexity'),
       timeComplexity=body.get('timeComplexity'),
+      note=body.get('note')
     )
     return JsonResponse({'created': f'{question_id}'}, status=200)
 
@@ -64,6 +65,7 @@ class OneQuestion(View):
       solution=body.get('solution'),
       spaceComplexity=body.get('spaceComplexity'),
       timeComplexity=body.get('timeComplexity'),
+      note=body.get('note')
     )
     return JsonResponse({'message': f'{question_id} updated'}, status=200)
 

@@ -9,7 +9,7 @@
     <mat-form-field>
       <mat-label>Topic</mat-label>
       <mat-select [formControlName]="'topic'">
-        <mat-option *ngFor="let topic of topicsAndTechniques" [value]="topic">
+        <mat-option *ngFor="let topic of topics" [value]="topic">
           {{topic}}
         </mat-option>
       </mat-select>

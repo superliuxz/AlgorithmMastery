@@ -29,7 +29,7 @@ export class AlgorithmQuestionItemComponent implements OnInit, OnDestroy {
       .select('algorithmQuestions')
       .subscribe(algorithmQuestionsState => {
         this.algorithmQuestion =
-          algorithmQuestionsState.algorithmQuestions[this.questionId];
+          algorithmQuestionsState.questions[this.questionId];
       });
   }
 

@@ -18,8 +18,8 @@ export class AlgorithmQuestionListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.store.select('algorithmQuestions').subscribe(state => {
       const ids = [];
-      for (const id in state.algorithmQuestions) {
-        if (state.algorithmQuestions.hasOwnProperty(id)) {
+      for (const id in state.questions) {
+        if (state.questions.hasOwnProperty(id)) {
           ids.push(id);
         }
       }

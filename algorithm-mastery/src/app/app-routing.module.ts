@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AlgorithmQuestionListComponent } from './algorithm-questions/algorithm-question-list/algorithm-question-list.component';
 import { AlgorithmQuestionsResolverService } from './algorithm-questions/algorithm-questions-resolver.service';
+import { FiltersResolverService } from './algorithm-questions/filters-resolver.service';
 
 const appRoutes: Routes = [
   {
     path: 'questions',
     component: AlgorithmQuestionListComponent,
-    resolve: [AlgorithmQuestionsResolverService],
+    resolve: [FiltersResolverService, AlgorithmQuestionsResolverService],
   },
   { path: '**', redirectTo: '/questions' },
 ];

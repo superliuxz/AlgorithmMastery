@@ -20,7 +20,9 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { environment } from '../environments/environment.prod';
 import { AlgorithmQuestionsEffects } from './algorithm-questions/store/algorithm-questions.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +62,7 @@ import { appReducer } from './store/app.reducer';
     MatGridListModule,
     ReactiveFormsModule,
     StoreModule.forRoot(appReducer),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     AppRoutingModule,
   ],
   providers: [

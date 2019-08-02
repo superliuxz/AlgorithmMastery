@@ -1,22 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { combineLatest, of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AllQuestionsResponse } from './algorithm-questions.actions';
+import {
+  AllQuestionsResponse,
+  FilterResponse,
+} from './algorithm-questions.actions';
 import * as AlgorithmQuestionsAction from './algorithm-questions.actions';
-import { AlgorithmQuestionsState } from './algorithm-questions.reducer';
 
 @Injectable()
 export class AlgorithmQuestionsEffects {
-  constructor(
-    private actions: Actions,
-    private http: HttpClient,
-    private store: Store<AlgorithmQuestionsState>
-  ) {}
+  constructor(private actions: Actions, private http: HttpClient) {}
 
   fetchAlgorithmQuestions = createEffect(() => {
     return this.actions.pipe(
@@ -62,6 +59,18 @@ export class AlgorithmQuestionsEffects {
           id: resp.created,
           question: action.question,
         });
+      })
+    );
+  });
+
+  fetchFilters = createEffect(() => {
+    return this.actions.pipe(
+      ofType(AlgorithmQuestionsAction.fetchFilters),
+      switchMap(action => {
+        return this.http.get<FilterResponse>(environment.filtersEP);
+      }),
+      map(resp => {
+        return AlgorithmQuestionsAction.setFilters({ filters: resp });
       })
     );
   });

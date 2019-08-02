@@ -16,6 +16,14 @@ import { AppState } from '../store/app.reducer';
 export class HeaderComponent implements OnInit, OnDestroy {
   private isAuthenticated: boolean;
   private sub: Subscription;
+  toppingList: string[] = [
+    'Extra cheese',
+    'Mushroom',
+    'Onion',
+    'Pepperoni',
+    'Sausage',
+    'Tomato',
+  ];
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 

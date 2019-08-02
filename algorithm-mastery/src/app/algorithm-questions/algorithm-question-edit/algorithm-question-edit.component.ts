@@ -11,10 +11,12 @@ import {
   MatAutocompleteSelectedEvent,
   MatDialogRef,
 } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Converter } from 'showdown';
 
+import { AppState } from '../../store/app.reducer';
 import { AlgorithmQuestionModel } from '../algorithm-question.model';
 
 @Component({
@@ -25,54 +27,23 @@ import { AlgorithmQuestionModel } from '../algorithm-question.model';
 export class AlgorithmQuestionEditComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AlgorithmQuestionEditComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: AlgorithmQuestionModel
+    @Inject(MAT_DIALOG_DATA) private data: AlgorithmQuestionModel,
+    private store: Store<AppState>
   ) {}
 
   form: FormGroup;
-  // TODO: move it to backend.
-  // TODO: separate into topic and techniques.
-  topicsAndTechniques = [
-    'Array',
-    'Hash Table',
-    'Linked List',
-    'Math',
-    'String',
-    'Two Pointers',
-    'Binary Search',
-    'Divide and Conquer',
-    'DP',
-    'Backtracking',
-    'Stack',
-    'Heap',
-    'Queue',
-    'Greedy',
-    'Sort',
-    'Bit',
-    'Binary Tree',
-    'N-ary Tree',
-    'Graph',
-    'DFS',
-    'BFS',
-    'DFS+MEMO',
-    'UF',
-    'Topological Sort',
-    'Trie',
-    'Binary Index Tree',
-    'Segment Tree',
-    'BST',
-    'Recursion',
-    'Minmax',
-    'Reservoir Sampling',
-    'Sliding Window',
-    'Sweep Line',
-    'Probability',
-    'Random',
-  ];
+  topics: string[];
+  techniques: string[];
   filteredTechniques: Observable<string[]>;
   techniquesInputControl = new FormControl();
   converter = new Converter();
+  sub: Subscription;
 
   ngOnInit() {
+    this.sub = this.store.select('algorithmQuestions').subscribe(state => {
+      this.topics = state.filters.topics;
+      this.techniques = state.filters.techniques;
+    });
     const techniquesArray = new FormArray([]);
     this.data.techniques.forEach(technique => {
       techniquesArray.push(new FormControl(technique, [Validators.required]));
@@ -94,10 +65,10 @@ export class AlgorithmQuestionEditComponent implements OnInit {
       startWith(null),
       map(typedTopic => {
         if (!typedTopic) {
-          return this.topicsAndTechniques;
+          return this.techniques;
         }
         const lowered = typedTopic.toLowerCase();
-        return this.topicsAndTechniques.filter(item =>
+        return this.techniques.filter(item =>
           item.toLowerCase().includes(lowered)
         );
       })

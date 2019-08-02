@@ -4,12 +4,19 @@ import * as AlgorithmQuestionsAction from './algorithm-questions.actions';
 import { AlgorithmQuestionModel } from '../algorithm-question.model';
 
 export interface AlgorithmQuestionsState {
-  algorithmQuestions: {
+  questions: {
     [id: string]: AlgorithmQuestionModel;
+  };
+  filters: {
+    topics: string[];
+    techniques: string[];
   };
 }
 
-const initialState: AlgorithmQuestionsState = { algorithmQuestions: {} };
+const initialState: AlgorithmQuestionsState = {
+  questions: {},
+  filters: { topics: [], techniques: [] },
+};
 
 export function algorithmQuestionsReducer(
   algorithmQuestionsState: AlgorithmQuestionsState | undefined,
@@ -20,18 +27,21 @@ export function algorithmQuestionsReducer(
     on(AlgorithmQuestionsAction.setQuestions, (state, action) => {
       return {
         ...state,
-        algorithmQuestions: action.questions,
+        questions: action.questions,
       };
     }),
     on(AlgorithmQuestionsAction.updateQuestion, (state, action) => {
       const newState = { ...state };
-      newState.algorithmQuestions[action.id] = action.question;
+      newState.questions[action.id] = action.question;
       return newState;
     }),
     on(AlgorithmQuestionsAction.setNewQuestionId, (state, action) => {
       const newState = { ...state };
-      newState.algorithmQuestions[action.id] = action.question;
+      newState.questions[action.id] = action.question;
       return newState;
+    }),
+    on(AlgorithmQuestionsAction.setFilters, (state, action) => {
+      return { ...state, filters: action.filters };
     })
   )(algorithmQuestionsState, algorithmQuestionsAction);
 }

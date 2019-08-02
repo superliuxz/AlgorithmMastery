@@ -16,15 +16,17 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from algo_mastery.views import OneQuestion, AllQuestions, Health
+from algo_mastery.views import OneQuestion, AllQuestions, Health, \
+  QuestionFilters
 
 urlpatterns = [
-    url(r'^admin/?', admin.site.urls),
-    url(r'^api/health/?$', Health.as_view(), name='health'),
-    url(r'^api/all-questions/?$', AllQuestions.as_view(),
-        name='get-all-questions'),
-    url(r'^api/one-question/?$', OneQuestion.as_view(),
-        name='put-one-question'),
-    url(r'^api/one-question/(?P<question_id>[^/]*)/?$', OneQuestion.as_view(),
-        name='update-one-question'),
+  url(r'^admin/?', admin.site.urls),
+  url(r'^api/health/?$', Health.as_view(), name='health'),
+  url(r'^api/filters/?$', QuestionFilters.as_view(), name='filters'),
+  url(r'^api/all-questions/?$', AllQuestions.as_view(),
+      name='get-all-questions'),
+  url(r'^api/one-question/?$', OneQuestion.as_view(),
+      name='put-one-question'),
+  url(r'^api/one-question/(?P<question_id>[^/]*)/?$', OneQuestion.as_view(),
+      name='update-one-question'),
 ]

@@ -12,6 +12,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 import * as AlgorithmQuestionsAction from './store/algorithm-questions.actions';
 import { AppState } from '../store/app.reducer';
 import { AllQuestionsResponse } from './store/algorithm-questions.actions';
+import { AlgorithmQuestionsState } from './store/algorithm-questions.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class AlgorithmQuestionsResolverService
@@ -27,18 +28,18 @@ export class AlgorithmQuestionsResolverService
     | AllQuestionsResponse {
     return this.store.select('algorithmQuestions').pipe(
       take(1),
-      switchMap((questionsState) /* type AlgorithmQuestionsState */ => {
-        if (Object.keys(questionsState.algorithmQuestions).length === 0) {
-          this.store.dispatch(AlgorithmQuestionsAction.fetchQuestions());
-          return this.actions.pipe(
-            ofType(AlgorithmQuestionsAction.setQuestions),
-            take(1),
-            map((props) /* type: {'question': AllQuestionsResponse} */ => {
-              return props.questions;
-            })
-          );
+      switchMap((questionsState: AlgorithmQuestionsState) => {
+        if (Object.keys(questionsState.questions).length !== 0) {
+          return of(questionsState.questions);
         }
-        return of(questionsState.algorithmQuestions);
+        this.store.dispatch(AlgorithmQuestionsAction.fetchQuestions());
+        return this.actions.pipe(
+          ofType(AlgorithmQuestionsAction.setQuestions),
+          take(1),
+          map((props: { questions: AllQuestionsResponse }) => {
+            return props.questions;
+          })
+        );
       })
     );
   }

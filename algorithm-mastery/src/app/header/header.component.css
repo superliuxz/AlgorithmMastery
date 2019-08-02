@@ -3,7 +3,12 @@ input::placeholder {
   opacity: 0.5;
 }
 
-mat-form-field {
+.search-bar {
   margin: 0 auto;
   width: 50%;
+}
+
+.filter-select {
+  margin: 0 auto;
+  width: 30%;
 }
