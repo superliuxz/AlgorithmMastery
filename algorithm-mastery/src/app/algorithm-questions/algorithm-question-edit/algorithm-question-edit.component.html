@@ -15,9 +15,9 @@
       </mat-select>
     </mat-form-field>
     <!-- TODO: what is this tags? -->
-<!--    <mat-form-field>-->
-<!--      <input matInput [placeholder]="'Tags'" [formControlName]="'tags'">-->
-<!--    </mat-form-field>-->
+    <!--    <mat-form-field>-->
+    <!--      <input matInput [placeholder]="'Tags'" [formControlName]="'tags'">-->
+    <!--    </mat-form-field>-->
     <mat-form-field>
       <mat-chip-list #chipList>
         <mat-chip
@@ -25,14 +25,16 @@
           [selectable]="true"
           [removable]="true"
           (removed)="onRemoveTechnique(i)">
-          {{it.value}} <mat-icon matChipRemove>cancel</mat-icon>
+          {{it.value}}
+          <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
         <input
-          [formControl]="techniquesInputControl"
-          [placeholder]="'Techniques'"
-          [matChipInputFor]="chipList"
-          [matChipInputAddOnBlur]="true"
-          [matAutocomplete]="auto">
+            #techniquesInput
+            [formControl]="techniquesInputControl"
+            [placeholder]="'Techniques'"
+            [matChipInputFor]="chipList"
+            [matChipInputAddOnBlur]="true"
+            [matAutocomplete]="auto">
         <mat-autocomplete
             #auto="matAutocomplete"
             (optionSelected)="onSelectTechnique($event)">
@@ -61,10 +63,12 @@
       </mat-tab>
     </mat-tab-group>
     <mat-form-field>
-      <input matInput [placeholder]="'Time Complexity'" [formControlName]="'timeComplexity'">
+      <input matInput [placeholder]="'Time Complexity'"
+             [formControlName]="'timeComplexity'">
     </mat-form-field>
     <mat-form-field>
-      <input matInput [placeholder]="'Space Complexity'" [formControlName]="'spaceComplexity'">
+      <input matInput [placeholder]="'Space Complexity'"
+             [formControlName]="'spaceComplexity'">
     </mat-form-field>
     <mat-form-field>
       <input matInput [placeholder]="'Note'" [formControlName]="'note'">

@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -36,6 +42,9 @@ export class AlgorithmQuestionEditComponent implements OnInit {
   techniques: string[];
   filteredTechniques: Observable<string[]>;
   techniquesInputControl = new FormControl();
+  @ViewChild('techniquesInput', { static: false }) techniquesInput: ElementRef<
+    HTMLInputElement
+  >;
   converter = new Converter();
   sub: Subscription;
 
@@ -95,6 +104,6 @@ export class AlgorithmQuestionEditComponent implements OnInit {
     (this.form.get('techniques') as FormArray).push(
       new FormControl($event.option.viewValue, [Validators.required])
     );
-    this.techniquesInputControl.setValue(null);
+    this.techniquesInput.nativeElement.value = '';
   }
 }
