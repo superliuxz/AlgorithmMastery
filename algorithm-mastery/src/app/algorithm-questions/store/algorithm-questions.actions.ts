@@ -48,3 +48,8 @@ export const setFilters = createAction(
   `${prefix} Set Filters`,
   props<{ filters: FilterResponse }>()
 );
+
+export const setQuery = createAction(
+  `${prefix} Set Query`,
+  props<{ techniques: string[]; topic: string; text: string }>()
+);

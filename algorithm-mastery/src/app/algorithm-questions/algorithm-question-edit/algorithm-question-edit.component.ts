@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   Inject,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -30,7 +31,7 @@ import { AlgorithmQuestionModel } from '../algorithm-question.model';
   templateUrl: './algorithm-question-edit.component.html',
   styleUrls: ['./algorithm-question-edit.component.css'],
 })
-export class AlgorithmQuestionEditComponent implements OnInit {
+export class AlgorithmQuestionEditComponent implements OnInit, OnDestroy {
   constructor(
     private dialogRef: MatDialogRef<AlgorithmQuestionEditComponent>,
     @Inject(MAT_DIALOG_DATA) private data: AlgorithmQuestionModel,
@@ -82,6 +83,10 @@ export class AlgorithmQuestionEditComponent implements OnInit {
         );
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   private getArrayControls(): AbstractControl[] {

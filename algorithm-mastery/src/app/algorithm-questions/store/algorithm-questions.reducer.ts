@@ -7,6 +7,7 @@ export interface AlgorithmQuestionsState {
   questions: {
     [id: string]: AlgorithmQuestionModel;
   };
+  query: { text: string; topic: string; techniques: string[] };
   filters: {
     topics: string[];
     techniques: string[];
@@ -15,6 +16,7 @@ export interface AlgorithmQuestionsState {
 
 const initialState: AlgorithmQuestionsState = {
   questions: {},
+  query: { text: '', topic: '', techniques: [] },
   filters: { topics: [], techniques: [] },
 };
 
@@ -42,6 +44,16 @@ export function algorithmQuestionsReducer(
     }),
     on(AlgorithmQuestionsAction.setFilters, (state, action) => {
       return { ...state, filters: action.filters };
+    }),
+    on(AlgorithmQuestionsAction.setQuery, (state, action) => {
+      return {
+        ...state,
+        query: {
+          text: action.text,
+          topic: action.topic,
+          techniques: action.techniques,
+        },
+      };
     })
   )(algorithmQuestionsState, algorithmQuestionsAction);
 }

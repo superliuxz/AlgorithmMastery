@@ -23,6 +23,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '../environments/environment.prod';
+import { QuestionsQueryPipe } from './algorithm-questions/questions-query.pipe';
 import { AlgorithmQuestionsEffects } from './algorithm-questions/store/algorithm-questions.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,7 @@ import { appReducer } from './store/app.reducer';
     AlgorithmQuestionItemComponent,
     AlgorithmQuestionEditComponent,
     HeaderComponent,
+    QuestionsQueryPipe,
   ],
   imports: [
     BrowserAnimationsModule,

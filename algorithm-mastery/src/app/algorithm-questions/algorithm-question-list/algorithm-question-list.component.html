@@ -1,5 +1,5 @@
 <mat-accordion multi="true">
-  <div *ngFor="let id of questionIds">
+  <div *ngFor="let id of (questionIds | query | async)">
     <app-algorithm-question-item [questionId]="id">
     </app-algorithm-question-item>
   </div>

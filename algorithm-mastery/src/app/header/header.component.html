@@ -2,7 +2,7 @@
   <mat-toolbar-row *ngIf="isAuthenticated; else WELCOME">
     <mat-form-field appearance="standard" class="search-bar">
       <mat-icon>search</mat-icon>
-      <input matInput type="search"
+      <input matInput type="search" [formControl]="searchText"
              placeholder="Search from title, input, output or note here...">
     </mat-form-field>
     <button mat-raised-button color="accent"
@@ -12,16 +12,17 @@
   <mat-toolbar-row>
     <mat-form-field class="filter-select" floatLabel="never">
       <mat-label style="opacity: 0.5;">Topic</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let topping of toppingList"
-                    [value]="topping">{{topping}}</mat-option>
+      <mat-select [formControl]="selectedTopic">
+        <mat-option [value]="''">None</mat-option>
+        <mat-option *ngFor="let topic of topics"
+                    [value]="topic">{{topic}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="filter-select" floatLabel="never">
       <mat-label style="opacity: 0.5;">Techniques</mat-label>
-      <mat-select multiple>
-        <mat-option *ngFor="let topping of toppingList"
-                    [value]="topping">{{topping}}</mat-option>
+      <mat-select [formControl]="selectedTechniques" multiple>
+        <mat-option *ngFor="let technique of techniques"
+                    [value]="technique">{{technique}}</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-toolbar-row>

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -15,26 +16,50 @@ import { AppState } from '../store/app.reducer';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private isAuthenticated: boolean;
-  private sub: Subscription;
-  toppingList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ];
+  private dialogSub: Subscription;
+  private filtersSub: Subscription;
+  private searchSub: Subscription;
+  private topics: string[];
+  private techniques: string[];
+  private searchText = new FormControl('');
+  private selectedTopic = new FormControl('');
+  private selectedTechniques = new FormControl([]);
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.isAuthenticated = true;
+
+    this.filtersSub = this.store
+      .select('algorithmQuestions')
+      .subscribe(state => {
+        this.topics = state.filters.topics;
+        this.techniques = state.filters.techniques;
+      });
+
+    const fg = new FormGroup({
+      searchText: this.searchText,
+      selectedTechniques: this.selectedTechniques,
+      selectedTopic: this.selectedTopic,
+    });
+
+    this.searchSub = fg.valueChanges.subscribe(values => {
+      this.store.dispatch(
+        AlgorithmQuestionsAction.setQuery({
+          techniques: values.selectedTechniques,
+          text: values.searchText,
+          topic: values.selectedTopic,
+        })
+      );
+    });
   }
 
   ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.dialogSub) {
+      this.dialogSub.unsubscribe();
     }
+    this.filtersSub.unsubscribe();
+    this.searchSub.unsubscribe();
   }
 
   onNewQuestion(): void {
@@ -43,9 +68,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       maxWidth: '100vw',
       minWidth: '60vw',
     });
-    this.sub = dialogRef.afterClosed().subscribe(updatedQuestion => {
+    this.dialogSub = dialogRef.afterClosed().subscribe(updatedQuestion => {
       if (updatedQuestion) {
-        console.log(updatedQuestion);
         this.store.dispatch(
           AlgorithmQuestionsAction.addQuestion({
             question: updatedQuestion,

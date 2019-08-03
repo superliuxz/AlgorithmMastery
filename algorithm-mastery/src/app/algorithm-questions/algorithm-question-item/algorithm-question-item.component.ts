@@ -48,7 +48,6 @@ export class AlgorithmQuestionItemComponent implements OnInit, OnDestroy {
     });
     this.dialogSub = dialogRef.afterClosed().subscribe(updatedQuestion => {
       if (updatedQuestion) {
-        console.log(updatedQuestion);
         this.store.dispatch(
           AlgorithmQuestionsAction.updateQuestion({
             id: this.questionId,
