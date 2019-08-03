@@ -18,7 +18,7 @@ export class QuestionsQueryPipe implements PipeTransform {
             const qn = state.questions[id];
             const hasTopic =
               state.query.topic !== ''
-                ? qn.topic.toLowerCase() === state.query.topic
+                ? qn.topic.toLowerCase() === state.query.topic.toLowerCase()
                 : true;
             const hasTechniques =
               state.query.techniques !== []

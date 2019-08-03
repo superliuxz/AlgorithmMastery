@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private topics: string[];
   private techniques: string[];
   private searchText = new FormControl('');
-  private selectedTopic = new FormControl('');
+  private selectedTopic = new FormControl(null);
   private selectedTechniques = new FormControl([]);
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
@@ -42,13 +42,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       selectedTechniques: this.selectedTechniques,
       selectedTopic: this.selectedTopic,
     });
-
     this.searchSub = fg.valueChanges.subscribe(values => {
       this.store.dispatch(
         AlgorithmQuestionsAction.setQuery({
           techniques: values.selectedTechniques,
           text: values.searchText,
-          topic: values.selectedTopic,
+          topic: !values.selectedTopic ? '' : values.selectedTopic,
         })
       );
     });
