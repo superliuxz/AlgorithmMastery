@@ -8,10 +8,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
 from algo_mastery.models import AlgorithmQuestion
+from algo_mastery.middleware import bearer_token_exempt
 
 logger = logging.getLogger('django')
 
 
+@method_decorator(bearer_token_exempt, name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class OneQuestion(View):
   http_method_names = ['put', 'post']
@@ -70,6 +72,7 @@ class OneQuestion(View):
     return JsonResponse({'message': f'{question_id} updated'}, status=200)
 
 
+@method_decorator(bearer_token_exempt, name='dispatch')
 @method_decorator(csrf_exempt, name="dispatch")
 class AllQuestions(View):
   http_method_names = ['get']

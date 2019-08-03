@@ -37,11 +37,17 @@ Tested under Python 3.7 and Postgres 10.
   psql -U postgres -c "ALTER USER algorithm_mastery PASSWORD '<password from local setting file>'"
   ```
  
-- __Important__: after setting up the database, run `python3 manage.py bearer_token create`, and copy the generated 
-token to the frontend app's environment.ts file, replace the `accessToken` field.
+~~- __Important__: after setting up the database, run `python3 manage.py bearer_token create`, and copy the generated 
+token to the frontend app's environment.ts file, replace the `accessToken` field.~~
 
 - You can also run with docker without setting up local dev environment:
-  - TODO
+  1. Configuring the database following the above instructions, and __expose the db to the ethernet__.
+      - https://blog.bigbinary.com/2016/01/23/configure-postgresql-to-allow-remote-connection.html can help - basically set up the server to listen to '*' instead of 'localhost'; and accept connections over the ethernet.
+  2. Build the image by `docker build . -t algo_backend:latest`.
+  3. By default, port 10101 is exposed. Run the container by:
+    `docker run -p 10101:10101 -e DJANGO_SETTINGS_MODULE=algo_mastery.settings.settings
+    -e DATABASE_NAME=<name of the db> -e DATABASE_USER=<db user> -e DATABASE_PASSWORD=<db password>
+    -e DATABASE_HOST=<db host> algo_backend:latest`.
 
 ## Production
-TODO
+Follow the instructions in the `README` from the upper directory.
