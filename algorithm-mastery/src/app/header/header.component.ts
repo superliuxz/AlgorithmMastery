@@ -15,15 +15,15 @@ import { AppState } from '../store/app.reducer';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private isAuthenticated: boolean;
+  isAuthenticated: boolean;
   private dialogSub: Subscription;
   private filtersSub: Subscription;
   private searchSub: Subscription;
-  private topics: string[];
-  private techniques: string[];
-  private searchText = new FormControl('');
-  private selectedTopic = new FormControl(null);
-  private selectedTechniques = new FormControl([]);
+  topics: string[];
+  techniques: string[];
+  searchText = new FormControl('');
+  selectedTopic = new FormControl(null);
+  selectedTechniques = new FormControl([]);
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 

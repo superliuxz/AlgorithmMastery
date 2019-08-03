@@ -45,7 +45,7 @@ import { appReducer } from './store/app.reducer';
   ],
   imports: [
     BrowserAnimationsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     EffectsModule.forRoot([AlgorithmQuestionsEffects]),
     FormsModule,
     HttpClientModule,

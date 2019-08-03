@@ -89,7 +89,7 @@ export class AlgorithmQuestionEditComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  private getArrayControls(): AbstractControl[] {
+  getArrayControls(): AbstractControl[] {
     return (this.form.get('techniques') as FormArray).controls;
   }
 

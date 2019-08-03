@@ -1,6 +1,6 @@
 # AlgorithmMastery
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+Angular front end with Material Design, NgRx and Server Side Rendering.
 
 ## Development Setup:
 
@@ -8,11 +8,16 @@ Generate `environment.ts` file under `src/environments` using the following temp
 ```javascript
 export const environment = {
   production: false,
-  accessToken: 'Bearer token generated from backend',
   allQuestionsEP: 'http://localhost:8000/api/all-questions/',
   oneQuestionEP: 'http://localhost:8000/api/one-question/',
+  filtersEP: 'http://localhost:10101/api/filters/',
 };
 ```
+
+## Run with Docker:
+- Using the same template, and save as `environment.prod.ts`;
+- `docker build . -t algo-frontend:latest` && `docker run -p 12345:12345 algo-frontend`
+- Go to http://localhost:12345.
 
 ## Development server
 
@@ -28,7 +33,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Production
 
-TODO.
+See `README` in upper directory.
 
 ## Running unit tests
 
