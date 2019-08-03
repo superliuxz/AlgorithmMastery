@@ -10,12 +10,12 @@ export const environment = {
   production: false,
   allQuestionsEP: 'http://localhost:8000/api/all-questions/',
   oneQuestionEP: 'http://localhost:8000/api/one-question/',
-  filtersEP: 'http://localhost:10101/api/filters/',
+  filtersEP: 'http://localhost:8000/api/filters/',
 };
 ```
 
 ## Run with Docker:
-- Using the same template, and save as `environment.prod.ts`;
+- Using the same template, change port to `10101`, and save as `environment.prod.ts`;
 - `docker build . -t algo-frontend:latest` && `docker run -p 12345:12345 algo-frontend`
 - Go to http://localhost:12345.
 
