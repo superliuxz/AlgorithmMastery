@@ -43,7 +43,10 @@ filters = ['Array',
            'Sliding Window',
            'Sweep Line',
            'Probability',
-           'Random']
+           'Random',
+           'Post-order Traversal',
+           'In-order Traversal',
+           'Pre-order Traversal']
 
 
 @method_decorator(bearer_token_exempt, name='dispatch')
