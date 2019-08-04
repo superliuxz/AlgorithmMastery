@@ -46,7 +46,7 @@ export class AlgorithmQuestionEditComponent implements OnInit, OnDestroy {
   @ViewChild('techniquesInput', { static: false }) techniquesInput: ElementRef<
     HTMLInputElement
   >;
-  converter = new Converter();
+  converter = new Converter({disableForced4SpacesIndentedSublists: true});
   sub: Subscription;
 
   ngOnInit() {

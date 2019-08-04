@@ -20,7 +20,7 @@ export class AlgorithmQuestionItemComponent implements OnInit, OnDestroy {
   @Input() questionId: string;
   private dialogSub: Subscription;
   private idSub: Subscription;
-  converter = new Converter();
+  converter = new Converter({disableForced4SpacesIndentedSublists: true});
 
   constructor(private dialog: MatDialog, private store: Store<AppState>) {}
 
