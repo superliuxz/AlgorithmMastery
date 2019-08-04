@@ -46,17 +46,24 @@
         </mat-autocomplete>
       </mat-chip-list>
     </mat-form-field>
-    <mat-form-field>
-      <textarea matInput [placeholder]="'Input'" [formControlName]="'input'">
-      </textarea>
-    </mat-form-field>
+    <mat-tab-group>
+      <mat-tab label="Input (Markdown)">
+        <mat-form-field style="width: 100%;">
+          <textarea matInput [formControlName]="'input'" rows="10"></textarea>
+        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Preview">
+        <div [innerHTML]="converter.makeHtml(form.get('input').value)"></div>
+      </mat-tab>
+    </mat-tab-group>
     <mat-form-field>
       <input matInput [placeholder]="'Output'" [formControlName]="'output'">
     </mat-form-field>
     <mat-tab-group>
       <mat-tab label="Solution (Markdown)">
         <mat-form-field style="width: 100%;">
-          <textarea matInput [formControlName]="'solution'"></textarea>
+          <textarea matInput [formControlName]="'solution'"
+                    rows="10"></textarea>
         </mat-form-field>
       </mat-tab>
       <mat-tab label="Preview">

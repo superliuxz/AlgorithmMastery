@@ -11,7 +11,10 @@
   <mat-tab-group>
     <mat-tab label="Description">
       <mat-list>
-        <mat-list-item>Input: {{algorithmQuestion.input}}</mat-list-item>
+        <p class="list-indent list-item-font-size">Input: </p>
+        <div class="list-indent"
+             [innerHTML]="converter.makeHtml(algorithmQuestion.input)">
+        </div>
         <mat-list-item>Output: {{algorithmQuestion.output}}</mat-list-item>
         <mat-list-item>
           <a [href]="algorithmQuestion.source"
