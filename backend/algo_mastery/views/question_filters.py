@@ -46,7 +46,13 @@ filters = sorted(['Array',
                   'Random',
                   'Post-order Traversal',
                   'In-order Traversal',
-                  'Pre-order Traversal'])
+                  'Pre-order Traversal',
+                  'Monotonic Queue',
+                  'Quick Select',
+                  'Quick Sort',
+                  'Merge Sort',
+                  'Level-order Traversal',
+                  'Priority Queue'])
 
 
 @method_decorator(bearer_token_exempt, name='dispatch')

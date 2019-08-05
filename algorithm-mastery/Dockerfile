@@ -17,7 +17,7 @@ RUN ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/app.conf
 RUN mkdir -p /etc/supervisor /var/log/supervisor
 COPY conf/supervisor /etc/supervisor/
 
-RUN rm -rf node_modules dist
+RUN rm -rf ./node_modules ./dist
 WORKDIR /app
 COPY ./ /app/
 RUN npm install
